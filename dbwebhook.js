@@ -3,6 +3,12 @@ const app = express();
 
 app.use(express.json());
 
+// ✅ Root route for browser checks
+app.get('/', (req, res) => {
+  res.send('🎉 Digital Badge Webhook is running!');
+});
+
+// ✅ Webhook route
 app.post('/api/webhook', (req, res) => {
   const {
     id,
@@ -13,7 +19,6 @@ app.post('/api/webhook', (req, res) => {
     badgeexpirydate
   } = req.body;
 
-  // Validate required fields
   if (!id || !member || !email || !product || !badgeawardeddate || !badgeexpirydate) {
     return res.status(400).json({
       success: false,
@@ -25,7 +30,6 @@ app.post('/api/webhook', (req, res) => {
     });
   }
 
-  // Simulate processing and response generation
   const responsePayload = {
     success: true,
     message: 'Badge processed successfully',
@@ -39,4 +43,4 @@ app.post('/api/webhook', (req, res) => {
 });
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Webhook listening on port ${PORT}`));
+app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
